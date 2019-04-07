@@ -1,0 +1,1 @@
+/opt/rh/devtoolset-7/root/usr/bin/c++   -pthread -std=c++17   CMakeFiles/game_server.dir/main.cpp.o  -o game_server /usr/lib64/libboost_system-mt.so 

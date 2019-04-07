@@ -1,0 +1,3 @@
+/home/hb/bit-code/50_class/Gobang/game/client/build/CMakeFiles/rebuild_cache.dir
+/home/hb/bit-code/50_class/Gobang/game/client/build/CMakeFiles/edit_cache.dir
+/home/hb/bit-code/50_class/Gobang/game/client/build/CMakeFiles/game_client.dir
