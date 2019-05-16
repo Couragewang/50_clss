@@ -5019,6 +5019,8 @@ unordered_map
 -
 utility
 -
+pthread.h
+-
 Log.hpp
 /home/hb/bit-code/50_class/Gobang/game/server/Log.hpp
 Player.hpp
@@ -5027,11 +5029,17 @@ Player.hpp
 /home/hb/bit-code/50_class/Gobang/game/server/Room.hpp
 iostream
 -
+string
+-
 
 /home/hb/bit-code/50_class/Gobang/game/server/RoomManager.hpp
 iostream
 -
+string
+-
 unordered_map
+-
+pthread.h
 -
 Room.hpp
 /home/hb/bit-code/50_class/Gobang/game/server/Room.hpp

@@ -3,63 +3,6 @@
 using namespace rest_rpc;
 using namespace rpc_service;
 using namespace std;
-//#include <fstream>
-//
-//struct dummy{
-//	int add(connection* conn, int a, int b) { return a + b; }
-//};
-//
-//std::string translate(connection* conn, const std::string& orignal) {
-//	std::string temp = orignal;
-//	for (auto& c : temp) { 
-//		c = std::toupper(c); 
-//	}
-//	return temp;
-//}
-//
-//void hello(connection* conn, const std::string& str) {
-//	std::cout << "hello " << str << std::endl;
-//}
-//
-//struct person {
-//	int id;
-//	std::string name;
-//	int age;
-//
-//	MSGPACK_DEFINE(id, name, age);
-//};
-//
-//std::string get_person_name(connection* conn, const person& p) {
-//	return p.name;
-//}
-//
-//person get_person(connection* conn) {
-//	return { 1, "tom", 20 };
-//}
-//
-//void upload(connection* conn, const std::string& filename, const std::string& content) {
-//	std::cout << content.size() << std::endl;
-//	std::ofstream file(filename, std::ios::binary);
-//	file.write(content.data(), content.size());
-//}
-//
-//std::string download(connection* conn, const std::string& filename) {
-//	std::ifstream file(filename, std::ios::binary);
-//	if (!file) {
-//		return "";
-//	}
-//
-//	file.seekg(0, std::ios::end);
-//	size_t file_len = file.tellg();
-//	file.seekg(0, std::ios::beg);
-//	std::string content;
-//	content.resize(file_len);
-//	file.read(&content[0], file_len);
-//	std::cout << file_len << std::endl;
-//
-//	return content;
-//}
-//
 
 Hall GameHall;
 
@@ -79,14 +22,49 @@ int RpcPlayerReady(connection* conn, uint32_t id)
 {
     return GameHall.IsPlayerReady(id);
 }
+string RpcBoard(connection* conn, uint32_t room_id)
+{
+    return GameHall.GetPlayerBoard(room_id);
+}
+uint32_t RpcPlayerRoomId(connection* conn,uint32_t id)
+{
+    return GameHall.GetPlayerRoomId(id);
+}
+char RpcPlayerPiece(connection* conn,uint32_t room_id, uint32_t id)
+{
+    return GameHall.GetPlayerPiece(room_id, id);
+}
+bool RpcIsMyTurn(connection* conn,uint32_t room_id, uint32_t id)
+{
+    return GameHall.IsMyTurn(room_id, id);
+}
+void RpcStep(connection* conn,uint32_t room_id, uint32_t id, int x, int y)
+{
+    return GameHall.Step(room_id, id, x, y);
+}
+char RpcJudge(connection* conn,uint32_t room_id, uint32_t id)
+{
+    return GameHall.Judge(room_id, id);
+}
+bool RpcPopMatchPool(connection* conn,uint32_t id)
+{
+    return GameHall.PopIdMatchPool(id);
+}
 int main() {
-	rpc_server server(9000, 4);
+	rpc_server server(9001, 4);
     LOG(INFO, "Init Server .... done");
 
 	server.register_handler("RpcRegister", RpcRegister);
 	server.register_handler("RpcLogin", RpcLogin);
 	server.register_handler("RpcMatchAndWait", RpcMatchAndWait);
 	server.register_handler("RpcPlayerReady", RpcPlayerReady);
+	server.register_handler("RpcPlayerRoomId", RpcPlayerRoomId);
+	server.register_handler("RpcPlayerPiece", RpcPlayerPiece);
+	server.register_handler("RpcBoard", RpcBoard);
+	server.register_handler("RpcIsMyTurn", RpcIsMyTurn);
+	server.register_handler("RpcStep", RpcStep);
+	server.register_handler("RpcJudge", RpcJudge);
+	server.register_handler("RpcPopMatchPool", RpcPopMatchPool);
 
     LOG(INFO, "Register All Function .... done");
     LOG(INFO, "Server start ... done");
@@ -105,3 +83,5 @@ int main() {
 	std::string str;
 	std::cin >> str;
 }
+
+

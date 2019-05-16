@@ -43,8 +43,12 @@ int main(int argc, char *argv[])
                 break;
             case 2:
                 Register(ip, port, name, passwd, id);
-                cout <<"注册成功，请务必记住你的登录ID: [ "<< id << " ]"<< endl;
-                cout << "请直接进行登录!" << endl;
+                if(id < 10000){
+                    cout <<"注册失败，请稍后再试！"<< endl;
+                }else{
+                    cout <<"注册成功，请务必记住你的登录ID: [ "<< id << " ]"<< endl;
+                    cout << "请直接进行登录!" << endl;
+                }
                 break;
             case 3:
                 cout << "Client Quit!" << endl;

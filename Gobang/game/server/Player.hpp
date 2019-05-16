@@ -26,9 +26,10 @@ class Player{
         int tie; //平局
 
         status_t st;
+        uint32_t room_id;
 
-        pthread_mutex_t lock;
-        pthread_cond_t cond;
+//        pthread_mutex_t lock;
+//        pthread_cond_t cond;
     public:
         Player()
         {}
@@ -39,8 +40,8 @@ class Player{
             lose = 0;
             tie = 0;
             st = OFFLINE;
-            pthread_mutex_init(&lock, NULL);
-            pthread_cond_init(&cond, NULL);
+ //           pthread_mutex_init(&lock, NULL);
+ //           pthread_cond_init(&cond, NULL);
         }
         const string& Passwd()
         {
@@ -70,21 +71,29 @@ class Player{
             }
             return win*100/total;
         }
-        int Wait()
+        uint32_t Room()
         {
-            struct timespec ts;
-            clock_gettime(CLOCK_REALTIME, &ts);
-            ts.tv_sec += TIMEOUT;
-            return pthread_cond_timedwait(&cond, &lock, &ts);
+            return room_id;
         }
-        void Signal()
+        void SetRoom(uint32_t &room_id_)
         {
-            pthread_cond_signal(&cond);
+            room_id = room_id_;
         }
+  //      int Wait()
+  //      {
+  //          struct timespec ts;
+  //          clock_gettime(CLOCK_REALTIME, &ts);
+  //          ts.tv_sec += TIMEOUT;
+  //          return pthread_cond_timedwait(&cond, &lock, &ts);
+  //      }
+  //      void Signal()
+  //      {
+  //          pthread_cond_signal(&cond);
+  //      }
         ~Player()
         {
-            pthread_mutex_destroy(&lock);
-            pthread_cond_destroy(&cond);
+  //          pthread_mutex_destroy(&lock);
+  //          pthread_cond_destroy(&cond);
         }
 };
 
